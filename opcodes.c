@@ -257,3 +257,33 @@ void mul_stack(stack_t **stack, unsigned int line_number)
 	(*stack)->prev = NULL;
 	free(top);
 }
+
+/**
+ * mod_stack - computes the rest of the division of the second top
+ * element of the stack by the top element of the stack
+ * @stack: pointer to the top of the stack
+ * @line_number: line number in the bytecode file
+ */
+void mod_stack(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	top = *stack;
+	if (top->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	top->next->n = top->next->n % top->n;
+
+	*stack = top->next;
+	(*stack)->prev = NULL;
+	free(top);
+}
