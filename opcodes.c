@@ -168,3 +168,14 @@ void add_stack(stack_t **stack, unsigned int line_number)
 	(*stack)->prev = NULL;
 	free(top);
 }
+
+/**
+ * nop_stack - does nothing
+ * @stack: pointer to the top of the stack (unused)
+ * @line_number: line number in the bytecode file (unused)
+ */
+void nop_stack(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+}
