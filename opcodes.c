@@ -145,3 +145,26 @@ void swap_stack(stack_t **stack, unsigned int line_number)
 
 	*stack = second;
 }
+
+/**
+ * add_stack - adds the top two elements of the stack
+ * @stack: pointer to the top of the stack
+ * @line_number: line number in the bytecode file
+ */
+void add_stack(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	top = *stack;
+	top->next->n = top->next->n + top->n;
+
+	*stack = top->next;
+	(*stack)->prev = NULL;
+	free(top);
+}
