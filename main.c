@@ -1,6 +1,7 @@
 #include "monty.h"
 
 char *current_arg;
+int is_queue = 0;
 
 /**
  * main - entry point for the Monty bytecode interpreter

@@ -37,6 +37,7 @@ typedef struct instruction_s
 
 /* holds the argument token of the line currently being executed */
 extern char *current_arg;
+extern int is_queue;
 
 void run_file(FILE *fp);
 void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number);
@@ -58,5 +59,7 @@ void pchar_stack(stack_t **stack, unsigned int line_number);
 void pstr_stack(stack_t **stack, unsigned int line_number);
 void rotl_stack(stack_t **stack, unsigned int line_number);
 void rotr_stack(stack_t **stack, unsigned int line_number);
+void stack_mode(stack_t **stack, unsigned int line_number);
+void queue_mode(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */

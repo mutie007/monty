@@ -34,6 +34,7 @@ int is_number(char *str)
 void push_stack(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
+	stack_t *tmp;
 
 	if (!is_number(current_arg))
 	{
@@ -52,11 +53,30 @@ void push_stack(stack_t **stack, unsigned int line_number)
 
 	new_node->n = atoi(current_arg);
 	new_node->prev = NULL;
-	new_node->next = *stack;
+	new_node->next = NULL;
 
-	if (*stack != NULL)
-		(*stack)->prev = new_node;
-	*stack = new_node;
+	if (is_queue == 0)
+	{
+		new_node->next = *stack;
+		if (*stack != NULL)
+			(*stack)->prev = new_node;
+		*stack = new_node;
+	}
+	else
+	{
+		if (*stack == NULL)
+		{
+			*stack = new_node;
+		}
+		else
+		{
+			tmp = *stack;
+			while (tmp->next != NULL)
+				tmp = tmp->next;
+			tmp->next = new_node;
+			new_node->prev = tmp;
+		}
+	}
 }
 
 /**
@@ -384,4 +404,28 @@ void rotr_stack(stack_t **stack, unsigned int line_number)
 	bottom->next = top;
 	top->prev = bottom;
 	*stack = bottom;
+}
+
+/**
+ * stack_mode - sets the format of the data to a stack (LIFO)
+ * @stack: pointer to the top of the stack (unused)
+ * @line_number: line number in the bytecode file (unused)
+ */
+void stack_mode(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+	is_queue = 0;
+}
+
+/**
+ * queue_mode - sets the format of the data to a queue (FIFO)
+ * @stack: pointer to the top of the stack (unused)
+ * @line_number: line number in the bytecode file (unused)
+ */
+void queue_mode(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+	is_queue = 1;
 }
