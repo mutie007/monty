@@ -330,3 +330,31 @@ void pstr_stack(stack_t **stack, unsigned int line_number)
 	}
 	printf("\n");
 }
+
+/**
+ * rotl_stack - rotates the stack to the top
+ * @stack: pointer to the top of the stack
+ * @line_number: line number in the bytecode file (unused)
+ */
+void rotl_stack(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top;
+	stack_t *bottom;
+
+	(void)line_number;
+	if (*stack == NULL || (*stack)->next == NULL)
+		return;
+
+	top = *stack;
+	bottom = *stack;
+
+	while (bottom->next != NULL)
+		bottom = bottom->next;
+
+	*stack = top->next;
+	(*stack)->prev = NULL;
+
+	top->next = NULL;
+	top->prev = bottom;
+	bottom->next = top;
+}
