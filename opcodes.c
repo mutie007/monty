@@ -310,3 +310,23 @@ void pchar_stack(stack_t **stack, unsigned int line_number)
 	}
 	printf("%c\n", (*stack)->n);
 }
+
+/**
+ * pstr_stack - prints the string starting at the top of the stack
+ * @stack: pointer to the top of the stack
+ * @line_number: line number in the bytecode file (unused)
+ */
+void pstr_stack(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current;
+
+	(void)line_number;
+	current = *stack;
+	while (current != NULL && current->n != 0 &&
+		current->n >= 0 && current->n <= 127)
+	{
+		printf("%c", current->n);
+		current = current->next;
+	}
+	printf("\n");
+}
